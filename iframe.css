@@ -1,0 +1,414 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif&display=swap");
+
+:root {
+  --color1: red;
+  --size1: 500px;
+  --cursor1: url(http://www.rw-designer.com/cursor-extern.php?id=154125),
+    default;
+  --font1: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font1);
+  font-size: 14pt;
+}
+
+.o {
+  height: 500px;
+  width: 500px;
+  background-color: blue;
+}
+
+.i {
+  height: 200px;
+  width: 200px;
+  background-color: brown;
+}
+
+div {
+  height: 50px;
+  width: 50px;
+  background-color: aquamarine;
+}
+
+/* iframe,
+embed,
+object {
+  width: 500px;
+  height: 500px;
+  border: none;
+}
+
+html {
+  background: black;
+}
+
+body {
+  min-height: 100vh;
+  cursor: var(--cursor1);
+}
+
+h1 {
+  height: 70%;
+  width: 100%;
+  text-align: center;
+  line-height: 100px;
+  background-color: var(--color1);
+  position: absolute;
+  top: 30%;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+div.container:is(:hover, :focus) h1 {
+  top: 0;
+  opacity: 1;
+  height: 100%;
+  cursor: var(--cursor1);
+}
+
+div.container {
+  height: 300px;
+  width: 300px;
+  position: relative;
+}
+
+div.img {
+  color: black;
+  height: 300px;
+  width: 300px;
+  background: aqua;
+  position: absolute;
+  transition: transform 2s ease, color 5s ease;
+  top: 0;
+  background-image: url(https://c.files.bbci.co.uk/12A9B/production/_111434467_gettyimages-1143489763.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-blend-mode: overlay;
+  animation: change_color 5s infinite;
+}
+
+[data-choice="1"] {
+    background-color: yellow !important;
+}
+
+div:is(:hover, :focus) div {
+  filter: blur(2px);
+  animation: flip 2s forwards;
+}
+
+
+
+main {
+  --color1: aliceblue;
+}
+
+main div {
+  height: 600px;
+  width: 600px;
+  background-color: var(--color1);
+  padding: 20px;
+  font-size: 20pt;
+  cursor: text;
+  resize: both;
+  overflow: auto;
+}
+
+:is(div, p:rtg) {
+  background-color: aquamarine !important;
+}
+
+main div:hover p,
+main div:focus p,
+main div:hover a,
+main div:focus a {
+  color: beige;
+}
+
+main div:is(:hover, :focus) :is(p, a) {
+    color: magenta;
+}
+
+input:hover {
+    background-color: fuchsia;
+}
+
+input:focus {
+    background-color: mediumseagreen;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
+
+@keyframes change_color {
+  0% {
+    background-color: aqua;
+  }
+  20% {
+    background-color: crimson;
+  }
+  40% {
+    background-color: rgb(0, 255, 34);
+  }
+  60% {
+    background-color: rgb(255, 0, 191);
+  }
+  80% {
+    background-color: rgb(255, 94, 0);
+  }
+  100% {
+    background-color: aqua;
+  }
+} */
+
+body {
+  height: 100vh;
+  background-color: var(--color1);
+}
+
+/* span::before {
+  content: "";
+}
+
+span::after {
+  content: "not centered";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+} */
+
+/* div:hover ::after {
+  content: "centered";
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+/* div {
+  pointer-events: none;
+}
+
+div::after {
+  content: "X";
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 20pt;
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  cursor: pointer;
+  border: 1px solid black;
+  text-align: center;
+  background-color: white;
+  pointer-events: all;
+}
+
+div:hover::after {
+  background-color: aquamarine;
+} */
+
+/* div {
+  height: 50px;
+}
+
+div:hover::before {
+  content: "-";
+  background-color: green;
+  border-radius: 50%;
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+div:hover::after {
+  content: "+";
+  background-color: bisque;
+  border-radius: 50%;
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  text-align: center;
+} */
+/* 
+div {
+  max-width: 630px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+div div {
+  width: 200px;
+  height: 200px;
+  background-color: blanchedalmond;
+  margin: 5px;
+}
+
+div:hover::after {
+  content: "";
+  flex: auto;
+} */
+
+/* div:hover ::after {
+  content: attr(data-toggle);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(120%, -50%);
+} */
+
+/* div.o {
+  height: 200px;
+  width: 200px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+div.i {
+  height: 200px;
+  width: 200px;
+  position: relative;
+  z-index: 10;
+  background-color: var(--color1);
+}
+
+span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  display: block;
+  width: fit-content;
+}
+
+div.i:hover + span {
+  z-index: 20;
+  pointer-events: none;
+} */
+
+/* div.o {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  place-items: center;
+}
+
+.t {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 5000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div.i {
+  width: 500px;
+  height: fit-content;
+  padding: 50px;
+  background-color: aqua;
+  position: relative;
+  z-index: 5001;
+}
+
+body:hover div.o {
+  display: grid;
+} */
+
+/* div {
+  min-height: 200vh;
+} */
+/* 
+.silver {
+  height: 350px;
+  width: 350px;
+  min-height: unset;
+  background-color: #c0c0c0;
+  position: relative;
+  left: 50px;
+  visibility: visible;
+  padding: 15px;
+} */
+
+/* .silver::first-line {
+  font-size: 20pt;
+  line-height: 14pt;
+  color: rgb(2, 245, 43);
+
+} */
+
+/* span.s2 {
+  font-size: 20pt;
+  display: none;
+
+} */
+/* 
+span::before {
+  content: "L";
+  font-size: 20pt;
+} */
+
+/* .silver2 {
+  height: 350px;
+  width: 350px;
+  min-height: unset;
+  background-color: #53e6fa;
+  left: 50px;
+} */
+/* 
+
+.gold {
+  background-color: #ffd900;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  position: relative;
+  /* transition: all 1s ease; */
+/* visibility: hidden; */
+
+/* .gold:hover {
+  background-color: gold;
+  visibility: visible;
+  
+} */
+
+/* .bronze {
+  background-color: brown;
+} */
+
+div {
+  height: 100vh;
+}
+
+div:nth-child(2) {
+  background-color: yellow;
+  overflow-y: scroll;
+  overscroll-behavior: auto;
+}
