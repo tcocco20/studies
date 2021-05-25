@@ -346,18 +346,30 @@
 // donkey.rest();
 
 // const actions = {
-//   move: () => console.log("starts to move"),
-//   eat: (str) => console.log(`eats${str ? " a " + str : ""}`),
-//   rest: (num) => console.log(`begins to rest${num ? " for " + num + " minutes." : ""}`),
+//   move: function () {
+//     console.log(`${this} starts to move`);
+//   },
+//   eat: function (str) {
+//     console.log(`${this} eats${str ? " a " + str : ""}`);
+//   },
+//   rest: function (num) {
+//     console.log(
+//       `${this} begins to rest${num ? " for " + num + " minutes." : ""}`
+//     );
+//   },
 // };
 
 // const animals = ["snake", "dog", "cat", "donkey"];
 
-// const [snake, dog, cat, donkey] = animals.map(() => actions);
+// const [snake, dog, cat, donkey] = animals.map((a) => {
+//   const obj = {};
+//   Object.keys(actions).forEach((p) => (obj[p] = actions[p].bind(a)));
+//   return obj;
+// });
 
 // cat.move();
 // snake.eat();
-// snake.eat("mouse")
+// snake.eat("mouse");
 // dog.move();
 // donkey.rest(60);
 
@@ -1052,58 +1064,957 @@
 // db.show();
 // db.getById(0);
 
-const dataBaseCreator = (() => {
-  const dataBase = {};
-  let id = 0;
+// const dataBaseCreator = (() => {
+//   const dataBase = {};
+//   let id = 0;
 
-  const addEntry = () => {
-    dataBase[id] = {};
-    return id++;
-  };
-  const newEntry = () => {
-    const id = addEntry();
-    return { addField: editEntry(id).addField };
-  };
-  const editEntry = (id) => ({
-    addField: addField(id),
-    editField: addField(id),
-  });
-  const addField = (id) => (field, value) => (dataBase[id][field] = value);
-  const getAll = () => console.log(dataBase);
-  const getById = (id) => console.log(dataBase[id]);
-  const getFromField = (type) => (field, value) => {
-    for (const id in dataBase) {
-      if (dataBase[id][field] === value) return type ? id : dataBase[id];
-    }
-  };
-  const getByField = getFromField();
-  const getIdByField = getFromField(true);
-  const getAllByField = (field, value) =>
-    Object.keys(dataBase)
-      .filter((id) => dataBase[id][field] === value)
-      .map((id) => dataBase[id]);
+//   const addEntry = () => {
+//     dataBase[id] = {};
+//     return id++;
+//   };
 
-  return {
-    newEntry,
-    editEntry,
-    getAll,
-    getByField,
-    getById,
-    getIdByField,
-    getAllByField,
-  };
-})();
+//   const newEntry = () => {
+//     const id = addEntry();
+//     return { addField: editEntry(id).addField };
+//   };
 
-const db = dataBaseCreator;
+//   const editEntry = (id) => ({
+//     addField: addField(id),
+//     editField: addField(id),
+//   });
 
-db.newEntry().addField("name", "Jay Smith");
-db.editEntry(0).addField("address", "123 1st St");
-db.editEntry(0).addField("phone", "555-666-7777");
-db.newEntry().addField("name", "Jay williamson");
-db.editEntry(1).addField("address", "123 1st St");
-db.editEntry(1).addField("phone", "555-666-7777");
-db.newEntry().addField("name", "Jay Smith");
-db.editEntry(2).addField("address", "123 1st St");
-db.editEntry(2).addField("phone", "555-666-7778");
-console.log(db.getAllByField("name", "Jay Smith"));
-console.log(db.getAllByField("phone", "555-666-7777"));
+//   const addField = (id) => (field, value) => (dataBase[id][field] = value);
+//   const getAll = () => console.log(dataBase);
+//   const getById = (id) => console.log(dataBase[id]);
+//   const remove = (id) => delete dataBase[id];
+
+//   const getByField = (field, value) => {
+//     const results = Object.keys(dataBase)
+//       .filter((id) => dataBase[id][field] === value)
+//       .map((id) => ({
+//         id,
+//         entry: dataBase[id],
+//         addField: editEntry(id).addField,
+//         remove: remove.bind(null, id),
+//       }));
+
+//     let i = 0;
+
+//     const next = () => {
+//       if (++i < results.length) return { current: results[i], next };
+//       return { current: results[i] };
+//     };
+
+//     if (results.length > 1) return { current: results[i], next, all: results };
+//     return { current: results[i] };
+//   };
+
+//   return {
+//     newEntry,
+//     editEntry,
+//     getAll,
+//     getByField,
+//     getById,
+//   };
+// })();
+
+// const db = dataBaseCreator;
+
+// db.newEntry().addField("name", "Jay Smith");
+// db.editEntry(0).addField("address", "123 1st St");
+// db.editEntry(0).addField("phone", "555-666-7777");
+// db.newEntry().addField("name", "Jay williamson");
+// db.editEntry(1).addField("address", "123 1st St");
+// db.editEntry(1).addField("phone", "555-666-7777");
+// db.newEntry().addField("name", "Jay Smith");
+// db.editEntry(2).addField("address", "123 1st St");
+// db.editEntry(2).addField("phone", "555-666-7778");
+// db.getByField("name", "Jay Smith").next().current.remove();
+// db.getAll();
+
+// const person = {
+//   name: "kyle",
+// };
+
+// // console.log(person.getName())
+
+// const personProxy = new Proxy(person, {
+//   get: (o, p) =>
+//     p in o
+//       ? o[p]
+//       : () => {
+//           console.error("property does not exist");
+//           return;
+//         },
+// });
+
+// person.getName = () => person.name;
+
+// console.log(personProxy.getName());
+
+// const person = {
+//   first: "Django",
+//   last: "Fett",
+//   age: 22,
+//   message: () => `${person.first} ${person.last} is ${person.age} years old.`,
+// };
+
+// console.log(`${person.first} ${person.last} is ${person.age} years old.`);
+
+// const makeMessage = (obj) =>
+//   `${obj.first} ${obj.last} is ${obj.age} years old.`;
+
+// console.log(person.message());
+
+// let test = {
+//   lambda: () => console.log(this),
+//   function: function () {
+//     console.log(this);
+//   },
+// };
+
+// Lambda always has a global scope(global this) * cannot change "this"
+// Function always has a default global scope(global this) can change "this"
+// Methods always have a default scope of the owner(local this) can change "this"
+// globalThis = BOM(browser object model) = window
+
+// test.lambda();
+// test.function();
+
+// function what() {
+//   console.log(this);
+// }
+
+// what();
+
+// console.log("test1");
+// window.console.log("test2");
+// globalThis.console.log("test3");
+// this.console.log("test4"); // could change if not on global scope
+
+// let test = {
+//   lambda: () => console.log(this),
+//   console: window.console,
+//   function: function () {
+//     this.console.log(this);
+//   },
+// };
+
+// test.function()
+
+// const person = {
+//   first: "Django",
+//   last: "Fett",
+//   age: 22,
+//   getInfo: function() { return `${this.first} ${this.last} is ${this.age} years old.` },
+// };
+
+// console.log(person.getInfo())
+
+// const character = {
+//   name: "Mario",
+//   race: "Human",
+//   level: 1,
+//   energy: 50,
+//   skills: {
+//     fireball: () => "shoots fireball",
+//     spin: () => "spin attack",
+//     jump: () => "jumps while punching the air",
+//   },
+//   getStats: function () {
+//     return `${this.name} is a ${this.race} at level ${
+//       this.level
+//     } and he has ${this.energy} energy. His skills include ${Object.keys(this.skills)}`;
+//   },
+//   changeName: function (name) {
+//     this.name = name;
+//   },
+//   lvlup: function () {
+//     this.level++;
+//   },
+// };
+
+// console.log(character.name)
+// console.log(character.race)
+// console.log(character.level)
+// // console.log(character.skills.fireball())
+// character.lvlup();
+// character.changeName("Wario");
+// console.log(character.getStats());
+
+// const character = {
+//   name: "Mario",
+//   race: "Human",
+//   level: 1,
+//   maxEnergy: 50,
+//   energy: 20,
+//   skills: {
+//     fireball: {
+//       effect: "shoots fireball",
+//       type: "single target",
+//       damage: 100,
+//       energyCost: 15,
+//     },
+//     spin: {
+//       effect: "spin attack",
+//       type: "multiple target",
+//       damage: 35,
+//       energyCost: 20,
+//     },
+//     jump: {
+//       effect: "jump punch",
+//       type: "single target",
+//       damage: 150,
+//       energyCost: 25,
+//     },
+//   },
+//   getStats: function () {
+//     return `${this.name} is a ${this.race} at level ${this.level} and he has ${
+//       this.energy
+//     } out of ${this.maxEnergy} max energy. His skills include ${Object.keys(
+//       this.skills
+//     )}`;
+//   },
+//   changeName: function (name) {
+//     this.name = name;
+//   },
+//   lvlup: function () {
+//     this.level++;
+//     this.maxEnergy += 5;
+//     Object.keys(this.skills).forEach((s, _, o) => console.log(s, o));
+//   },
+//   _increaseEnergy: function () {
+//     this.energy++;
+//   },
+//   recover: function () {
+//     setInterval(this._increaseEnergy.bind(this), 1000);
+//   },
+// };
+
+// console.log(character.getStats());
+// character.recover();
+// character.lvlup();
+// character.lvlup();
+// character.lvlup();
+// setTimeout(() => console.log(character.getStats()), 4000);
+
+// function Food(name, price) {
+//   this.name = name;
+//   this.price = price;
+// }
+
+// const apple = new Food("apple", 0.69);
+// console.log(apple.name)
+
+// function Product(name, price, category = "food") {
+//   this.name = name;
+//   this.price = price;
+//   this.category = category;
+// }
+
+// function Food(...args) {
+//   // Product.call(this, name, price, "food");
+//   Product.apply(this, arguments);
+// }
+
+// const bread = new Food("bread", 3);
+
+// console.log(bread.name, bread.price, bread.category);
+
+// const animals = [
+//   { species: "lion", name: "Mufasa" },
+//   { species: "tucan", name: "Zazu" },
+// ];
+
+// for (let i = 0; i < animals.length; i++) {
+//   (function (i) {
+//     this.print = function () {
+//       console.log(`${this.name} is a ${this.species}`);
+//     };
+//     this.print();
+//   }.call(animals[i], i));
+// }
+
+// const numbers = [0, 1, 2, 3];
+
+// // console.log(Math.max(numbers))
+
+// console.log(Math.max.apply(this, numbers));
+
+// console.log(Math.max(...numbers));
+
+// const test = {
+//   x: 5,
+//   getx: function () {
+//     return this.x;
+//   },
+// };
+
+// console.log(test.getx());
+
+// const getx = test.getx.bind(test);
+
+// console.log(getx());
+
+// const arr1 = [1, 2, 3],
+//   arr2 = [4, 5, 6];
+
+// arr1.map((el) => console.log(el));
+
+// Array.prototype.customForEach = function (cb, thisArg = this) {
+//   for (let i = 0; i < this.length; i++) cb.call(thisArg, this[i], i, this);
+// };
+
+// arr1.customForEach((el) => console.log(el));
+
+// Array.prototype.customMap = function (cb, thisArg = this) {
+//   const arr = [];
+//   for (let i = 0; i < this.length; i++)
+//     arr.push(cb.call(thisArg, this[i], i, this));
+//   return arr;
+// };
+
+// console.log(arr1.customMap((el) => ++el));
+
+// console.log(
+//   arr1.map(function (el, i) {
+//     return el + this[i];
+//   }, arr2)
+// );
+
+// console.log(
+//   arr1.customMap(function (el, i) {
+//     return el + this[i];
+//   }, arr2)
+// );
+
+// console.log(arr1.filter((x) => x > 1));
+
+// Array.prototype.customFilter = function (pr, thisArg = this) {
+//   const arr = [];
+//   for (let i = 0; i < this.length; i++) {
+//     if (pr.call(thisArg, this[i], i, this)) arr.push(this[i]);
+//   }
+//   return arr;
+// };
+
+// console.log(arr2.customFilter((x) => x % 2 === 0));
+
+// Object.prototype.map = function (o, cb, thisArg = o) {
+//   return Object.keys(o).map((key, i) => cb.call(thisArg, key, i, o));
+// };
+
+// const restaurant = {
+//   name: "Krusty Krab",
+//   address: "123 Bikini Bottom St",
+//   location: "Bikini Bottom",
+//   menu: [
+//     {
+//       name: "burger",
+//       price: 3,
+//       ingredients: ["buns", "patty", "veggies", "condiments"],
+//     },
+//     {
+//       name: "fries",
+//       price: 1,
+//       ingredients: ["potatoes", "seasoning"],
+//     },
+//   ],
+// };
+
+// console.log(Object.map(restaurant, (p) => p));
+// console.log(Object.map(restaurant, (p, _, o) => o[p]));
+
+// const restaurant2 = {
+//   name: "Chum Bucket",
+//   address: "124 Bikini Bottom St",
+//   location: "Bikini Bottom",
+//   menu: [
+//     {
+//       name: "sandwich",
+//       price: 3,
+//       ingredients: ["bread", "patty", "veggies", "condiments"],
+//     },
+//     {
+//       name: "chips",
+//       price: 1,
+//       ingredients: ["potatoes", "salt"],
+//     },
+//   ],
+// };
+
+// console.log(Object.map(restaurant, (p) => p, restaurant2));
+// console.log(
+//   Object.map(
+//     restaurant,
+//     function (p) {
+//       return this[p];
+//     },
+//     restaurant2
+//   )
+// );
+
+// const character = {
+//   name: "Luigi",
+//   power: 50,
+//   defense: 50,
+//   level: 10,
+//   getName: function () {
+//     console.log(this.name);
+//     return this;
+//   },
+//   setName: function (name) {
+//     this.name = name;
+//     return this;
+//   },
+//   attack: function () {
+//     console.log(`${this.name} does ${this.power * 1.5} damage`);
+//   },
+//   defend: function () {
+//     console.log(
+//       `${this.name} receives ${Math.round(2000 / this.defense)} damage`
+//     );
+//   },
+//   powerUp: function () {
+//     this.power += 20;
+//     return this;
+//   },
+//   shield: function () {
+//     this.defense += 20;
+//     return this;
+//   },
+// };
+
+// character.getName();
+// character.setName("Link");
+// character.getName();
+// character.attack();
+// character.defend();
+// character.powerUp();
+// character.shield();
+// character.attack();
+// // character.defend();
+
+// character.setName("Link").getName().setName("Luigi").getName();
+
+// character.powerUp().attack();
+// character.shield().defend();
+
+// const arr = [1, 2, 3];
+
+// arr.map().filter()
+
+// const x = (v) => {
+//   if (v === 1) return "1";
+//   else if (v === 2) return "2";
+//   else if (v === 3) return "3";
+//   else if (v === 4) return "4";
+//   else if (v === 5) return "5";
+//   else return "v > 5";
+// };
+
+// const x = (v) => {
+//   switch (v) {
+//     case 1:
+//       return "1";
+//       break;
+//     case 2:
+//       return "2";
+//       break;
+//     case 3:
+//       return "3";
+//       break;
+//     case 4:
+//       return "4";
+//       break;
+//     case 5:
+//       return "5";
+//       break;
+//     default:
+//       return "v > 5";
+//   }
+// };
+
+// for (let i = 1; i < 7; i++) console.log(x(i));
+
+// const x = (v) => {
+//   let buf = "";
+//   switch (v) {
+//     case 1:
+//       buf += "1";
+//       break;
+//     case 2:
+//       buf += "2";
+//       break;
+//     case 3:
+//       buf += "3";
+//       break;
+//     case 4:
+//       buf += "4";
+//       break;
+//     case 5:
+//       buf += "5";
+//       break;
+//     default:
+//       buf += "v > 5";
+//   }
+//   return buf;
+// };
+
+// for (let i = 1; i < 7; i++) console.log(x(i));
+
+// let buf = "";
+
+// for (let i = 0; i < 10; i++) {
+//   if (i % 2 === 0) buf += i;
+// }
+
+// console.log(buf);
+
+// export { x, y, z, a };
+
+// const x = "hi",
+//   y = "bye",
+//   z = "why",
+//   a = "circle";
+
+// const hooker = {
+//   name: "candy",
+//   netWorth: 50,
+//   getName: function () {
+//     return this.name;
+//   },
+//   hook: function (num) {
+//     this.netWorth += num;
+//   },
+// };
+
+// console.log(hooker.getName());
+// hooker.hook(50);
+// console.log(hooker.netWorth);
+
+// const hooker = {
+//   name: "crystal",
+//   netWorth: 50,
+//   getName: function () {
+//     return this.name;
+//   },
+//   get info() {
+//     return this.name;
+//   },
+//   hook: function (num) {
+//     this.netWorth += num;
+//   },
+//   set pay(num) {
+//     this.netWorth += num;
+//   },
+//   language: "EN",
+//   set lang(lang) {
+//     this.language = lang.toUpperCase();
+//   },
+// };
+
+// console.log(hooker.getName());
+// console.log(hooker.info);
+// hooker.hook(50);
+// console.log(hooker.netWorth);
+// hooker.pay = 50;
+// console.log(hooker.netWorth);
+// hooker.lang = "sp";
+// console.log(hooker.language);
+
+// function Person(first, last, age, phone) {
+//   this.first = first;
+//   this.last = last;
+//   this.age = age;
+//   this.phone = phone;
+// }
+
+// const john = new Person("John", "Smith", 32, "555-555-5555");
+
+// const sally = new Person("Sally", "Williams", 28, "555-555-5556");
+
+// console.log(john, sally);
+
+// john.address = "123 Fake St.";
+
+// console.log(john.address);
+
+// Person.prototype.address = "123 Fake St.";
+
+// console.log(sally.address);
+
+// Person.prototype.getName = function () {
+//   return `${this.first} ${this.last}`;
+// };
+
+// console.log(sally.getName());
+
+// console.log(new String("hello"));
+
+// String.prototype.capitalize = function () {
+//   return [...this]
+//     .map((l) => (l === this[0] ? l.toUpperCase() : l.toLowerCase()))
+//     .join("");
+// };
+
+// String.prototype.capitalize = function () {
+//   return this[0].toUpperCase() + this.slice(1).toLowerCase();
+// };
+
+// console.log("".capitalize());
+
+// function Person(first, last, age, phone) {
+//   this.first = first;
+//   this.last = last;
+//   this.age = age;
+//   this.phone = phone;
+//   this.getName = function () {
+//     return `${this.first} ${this.last}`;
+//   };
+// }
+
+// const john = new Person("John", "Smith", 32, "555-555-5555");
+
+// const sally = new Person("Sally", "Williams", 28, "555-555-5556");
+
+// console.log(john.getName());
+
+// const animal = {
+//   eat: function () {
+//     console.log(`The ${this.name} eats`);
+//   },
+//   move: function () {
+//     console.log(`The ${this.name} moves`);
+//   },
+//   sleep: function () {
+//     console.log(`The ${this.name} sleeps`);
+//   },
+// };
+
+// const rabbit = {
+//   name: "rabbit",
+//   __proto__: animal,
+// };
+
+// const raccoon = {
+//   name: "raccoon",
+//   __proto__: animal,
+// };
+
+// const bear = {
+//   name: "bear",
+// };
+
+// rabbit.eat();
+// raccoon.move();
+// Object.setPrototypeOf(bear, animal);
+// bear.sleep();
+
+// const makeAnimal = (animal, parent) => ({ name: animal, __proto__: parent });
+
+// const tiger = makeAnimal("tiger", animal);
+
+// tiger.eat();
+
+// function Animal() {
+//   this.move = function () {
+//     console.log(`The ${this.name} moves`);
+//   };
+//   this.eat = function (food) {
+//     console.log(`The ${this.name} eats ${food ? "a" + food : ""}`);
+//   };
+//   this.sleep = function () {
+//     console.log(`The ${this.name} sleeps tonight`);
+//   };
+// }
+
+// function Cat() {
+//   this.name = "cat";
+//   Animal.call(this);
+// }
+
+// const cat = new Cat();
+// cat.eat();
+// cat.move();
+// cat.sleep();
+
+// class Animal {
+//   walk = function () {
+//     console.log(`The ${this.name} walks`);
+//   };
+//   eat = function (food) {
+//     console.log(`The ${this.name} eats ${food ? "a" + food : ""}`);
+//   };
+//   sleep = function () {
+//     console.log(`The ${this.name} sleeps tonight`);
+//   };
+// }
+
+// class Lion extends Animal {
+//   name = "lion";
+// }
+
+// const simba = new Lion();
+
+// simba.sleep();
+
+// class Animal {
+//   walk = function () {
+//     console.log(`${this.name} the ${this.species} walks`);
+//   };
+//   eat = function (food) {
+//     console.log(
+//       `${this.name} the ${this.species} eats ${food ? "a" + food : ""}`
+//     );
+//   };
+//   sleep = function () {
+//     console.log(`${this.name} the ${this.species} sleeps tonight`);
+//   };
+// }
+
+// class Lion extends Animal {
+//   constructor(name) {
+//     super();
+//     this.name = name;
+//     this.species = "lion";
+//   }
+// }
+
+// const simba = new Lion("Simba");
+
+// simba.sleep();
+
+// class Animal {
+//   move = function () {
+//     console.log(`${this.name} the ${this.species} ${this.movement}`);
+//   };
+//   eat = function (food) {
+//     console.log(
+//       `${this.name} the ${this.species} eats ${food ? "a" + food : ""}`
+//     );
+//   };
+//   sleep = function () {
+//     console.log(`${this.name} the ${this.species} sleeps tonight`);
+//   };
+// }
+
+// class Frog extends Animal {
+//   constructor(name) {
+//     super();
+//     this.name = name;
+//     this.species = "frog";
+//     this.movement = "hops around";
+//   }
+// }
+
+// const kermit = new Frog("Kermit");
+
+// kermit.move();
+
+// class Animal {
+//   move = function () {
+//     console.log(`${this.name} the ${this.species} moves about`);
+//   };
+//   eat = function (food) {
+//     console.log(
+//       `${this.name} the ${this.species} eats ${food ? "a" + food : ""}`
+//     );
+//   };
+//   sleep = function () {
+//     console.log(`${this.name} the ${this.species} sleeps tonight`);
+//   };
+// }
+
+// class Frog extends Animal {
+//   constructor(name) {
+//     super();
+//     this.name = name;
+//     this.species = "frog";
+//   }
+//   move = function () {
+//     console.log(`${this.name} the ${this.species} hops about`);
+//   };
+// }
+
+// const kermit = new Frog("Kermit");
+
+// kermit.move();
+
+// class Monster {
+//   constructor(name) {
+//     this.name = name;
+//   }
+//   attack = function () {
+//     console.log(`${this.name} attacks`);
+//   };
+// }
+
+// class FlyingMonster extends Monster {
+//   constructor(...args) {
+//     super(...args);
+//   }
+//   fly = function () {
+//     console.log(`${this.name} flies`);
+//   };
+// }
+
+// class SwimmingMonster extends Monster {
+//   constructor(...args) {
+//     super(...args);
+//   }
+//   swim = function () {
+//     console.log(`${this.name} swims`);
+//   };
+// }
+
+// class SuperMonster extends Monster {
+//   constructor(...args) {
+//     super(...args);
+//   }
+//   swim = function () {
+//     console.log(`${this.name} swims`);
+//   };
+//   fly = function () {
+//     console.log(`${this.name} flies`);
+//   };
+// }
+
+// const enemy = new Monster("Kevin");
+// enemy.attack();
+
+// const flyingEnemy = new FlyingMonster("Glarb");
+// flyingEnemy.fly();
+// flyingEnemy.attack();
+
+// const swimmingMonster = new SwimmingMonster("Garydos");
+// swimmingMonster.swim();
+// swimmingMonster.attack();
+
+// function swimmer({ name: name }) {
+//   return {
+//     swim: (_) => console.log(`${name} swims`),
+//   };
+// }
+
+// function flyer({ name: name }) {
+//   return {
+//     fly: (_) => console.log(`${name} flies`),
+//   };
+// }
+
+// function monsterCreator(name) {
+//   const monster = {
+//     name: name,
+//     attack: function () {
+//       console.log(`${this.name} attacks`);
+//     },
+//   };
+//   return {
+//     ...monster,
+//     ...swimmer(monster),
+//     ...flyer(monster),
+//   };
+// }
+
+// const superMonster = monsterCreator("Jeff");
+
+// superMonster.fly();
+// superMonster.swim();
+// superMonster.attack();
+
+// function swimmer({ name: name }) {
+//   return {
+//     swim: (_) => console.log(`${name} swims`),
+//   };
+// }
+
+// function flyer({ name: name }) {
+//   return {
+//     fly: (_) => console.log(`${name} flies`),
+//   };
+// }
+
+// function monsterCreator(name, ...abilities) {
+//   const monster = {
+//     name: name,
+//     attack: function () {
+//       console.log(`${this.name} attacks`);
+//     },
+//   };
+
+//   abilities.forEach((a) => {
+//     if (a === "fly") Object.assign(monster, flyer(monster));
+//     if (a === "swim") Object.assign(monster, swimmer(monster));
+//   });
+
+//   return monster;
+// }
+
+// const superMonster = monsterCreator("Jeff", "fly");
+
+// superMonster.fly();
+// superMonster.swim();
+// superMonster.attack();
+
+// const FoodMixin = (superclass) =>
+//   class extends superclass {
+//     eat() {
+//       console.log("eating food");
+//     }
+//   };
+
+// class Animal {
+//   sleep() {
+//     console.log("sleeping");
+//   }
+// }
+
+// class Tiger extends FoodMixin(Animal) {
+//   growl() {
+//     console.log("Growls!");
+//   }
+// }
+
+// const tigger = new Tiger();
+
+// tigger.growl();
+// tigger.eat();
+// tigger.sleep();
+
+// const greetingMixin = {
+//   sayHi() {
+//     console.log("Hi");
+//   },
+//   sayBye() {
+//     console.log("Bye");
+//   },
+// };
+
+// const user = {
+//   name: "Steve",
+//   //   __proto__: greetingMixin,
+// };
+
+// Object.assign(user, greetingMixin);
+
+// user.sayHi();
+
+// const greetingMixin = {
+//   sayHi() {
+//     console.log("Hi");
+//   },
+//   sayBye() {
+//     console.log("Bye");
+//   },
+// };
+
+// class User {
+//   name = "Steve";
+// }
+
+// const steve = new User();
+
+// Object.assign(User.prototype, greetingMixin);
+
+// steve.sayHi();
