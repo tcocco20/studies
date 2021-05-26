@@ -19,51 +19,51 @@ export const builder1 = () => {
 
   class SamuraiBuilder {
     constructor(name) {
-      this.samurai = new Samurai(name);
+      this.name = name;
     }
 
     setClan(clan) {
-      this.samurai.clan = clan;
+      this.clan = clan;
       return this;
     }
 
     setAge(age) {
-      this.samurai.age = age;
+      this.age = age;
       return this;
     }
 
     setWeapon(weapon) {
-      this.samurai.weapon = weapon;
+      this.weapon = weapon;
       return this;
     }
 
     build() {
-      return this.samurai;
+      return new Samurai(this.name, this.clan, this.age, this.weapon);
     }
   }
 
   class ClanBuilder {
     constructor(name) {
-      this.clan = new Clan(name);
+      this.name = name;
     }
 
     setLocation(location) {
-      this.clan.location = location;
+      this.location = location;
       return this;
     }
 
     setLeader(leader) {
-      this.clan.leader = leader;
+      this.leader = leader;
       return this;
     }
 
     setMemberCount(memberCount) {
-      this.clan.memberCount = memberCount;
+      this.memberCount = memberCount;
       return this;
     }
 
     build() {
-      return this.clan;
+      return new Clan(this.name, this.location, this.leader, this.memberCount);
     }
   }
 
