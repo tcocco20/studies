@@ -99,10 +99,17 @@
 
 // renderPage(posts);
 
-const list = [1, 2, 3, "4", "5", 6, "7"];
+// const list = [1, 2, 3, "4", "5", 6, "7"];
 
-function filterList(list) {
-  return list.filter((i) => typeof i === "number");
-}
+// function filterList(list) {
+//   return list.filter((i) => typeof i === "number");
+// }
 
-console.log(filterList(list));
+// console.log(filterList(list));
+
+const s = "hi";
+let n = 3;
+
+for (let i = 0; i < n; i++) s += s
+
+console.log(s)
