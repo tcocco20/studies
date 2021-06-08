@@ -18,6 +18,6 @@ const patterns = {
   mediator,
 };
 
-const run = patterns.mediator;
+const run = patterns.builder2;
 
 run();
