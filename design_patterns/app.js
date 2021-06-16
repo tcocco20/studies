@@ -3,9 +3,11 @@ import { builder2 } from "./builder_pattern_js.js";
 import { facade } from "./facade_pattern.js";
 import { factory } from "./factory_pattern.js";
 import { mediator } from "./mediator_pattern.js";
+import { observer } from "./observer_pattern.js";
 import { proxy } from "./proxy_pattern.js";
 import { singleton } from "./singleton_pattern.js";
 import { strategy } from "./strategy_pattern.js";
+import { visitor } from "./visitor_pattern.js";
 
 const patterns = {
   builder1,
@@ -16,8 +18,9 @@ const patterns = {
   strategy,
   facade,
   mediator,
+  observer,
+  visitor,
 };
-
-const run = patterns.mediator;
+const run = patterns.visitor;
 
 run();
