@@ -21,6 +21,11 @@ const patterns = {
   observer,
   visitor,
 };
+<<<<<<< HEAD
 const run = patterns.visitor;
+=======
+
+const run = patterns.builder2;
+>>>>>>> b46685f0317e78484178913d0cb4aae2b3c4ae3c
 
 run();

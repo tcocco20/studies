@@ -22,6 +22,9 @@ export const builder2 = () => {
   const clan = new Clan("Oda", {});
 
   samurai.clan = clan;
+	
+	samurai.weapon = "Katana"
+	
 
   console.log(samurai);
 };
