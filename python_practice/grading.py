@@ -89,9 +89,12 @@ class Grade:
 
 try:
 	score = int(input('Enter the numeric score you got: '))
+	grade = Grade(score)
+
+	print(grade)
+	
 except:
-	print('Please enter a number and try again')
+	print('Please try again and enter a number this time')
 
-grade = Grade(score)
 
-print(grade)
+
