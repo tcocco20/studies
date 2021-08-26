@@ -1,7 +1,7 @@
 '''
 Theo Cocco
 Grading Lab
-Last Updated: August 10th, 2021
+Last Updated: 08/20/2021
 '''
 
 # Version 1 Simple Grade conversion
