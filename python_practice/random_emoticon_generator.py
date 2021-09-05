@@ -100,6 +100,8 @@ class Vertical_emoticon:
 		
 		return self.eyes + self.mouth + self.eyes
 	
+#Factory Pattern
+	
 class Emoticon_Factory:
 	pass
 
