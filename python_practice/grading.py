@@ -1,7 +1,7 @@
 '''
 Theo Cocco
 Grading Lab
-Last Updated: August 10th, 2021
+Last Updated: 08/20/2021
 '''
 
 # Version 1 Simple Grade conversion
@@ -89,9 +89,12 @@ class Grade:
 
 try:
 	score = int(input('Enter the numeric score you got: '))
+	grade = Grade(score)
+
+	print(grade)
+	
 except:
-	print('Please enter a number and try again')
+	print('Please try again and enter a number this time')
 
-grade = Grade(score)
 
-print(grade)
+
