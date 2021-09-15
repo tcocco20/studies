@@ -13,10 +13,10 @@ values = {
     'eight': 8,
     'nine': 9,
     'ten': 10,
-    'jack': 11,
-    'queen': 12,
-    'king': 13,
-    'ace': 14,
+    'jack': 10,
+    'queen': 10,
+    'king': 10,
+    'ace': 11,
 }
 
 
@@ -37,12 +37,6 @@ class Deck:
         for suit in suits:
             for rank in ranks:
                 self.all_cards.append(Card(suit, rank))
-
-    def shuffle_deck(self):
-        shuffle(self.all_cards)
-
-    def deal_one(self):
-        return self.all_cards.pop()
 
 
 class Bank:
@@ -68,7 +62,49 @@ class Player:
     def __init__(self, name, amount=1000):
         self.name = name
         self.bank = Bank(amount)
-        
+        self.hand = []
+
+    def check_bank(self):
+        print(self.bank)
+
+
 class Dealer:
     def __init__(self):
-      self.deck = Deck()
+        self.deck = Deck()
+        self.hand = []
+
+    def shuffle_deck(self):
+        shuffle(self.deck.all_cards)
+
+    def deal_one(self):
+        return self.deck.all_cards.pop()
+
+
+class Game:
+    current_turn = ''
+
+    def __init__(self, player):
+        self.player = Player(player)
+        self.dealer = Dealer()
+        self.commands = {
+            "Hit Me": self.dealer.deal_one(),
+            "Stay": False,
+            "Check Bank": self.player.check_bank(),
+        }
+
+    def change_turn(self):
+        if self.current_turn == self.player:
+            self.current_turn = self.dealer
+            print("It is now the dealer's turn")
+            self.player.hand = []
+        else:
+            self.current_turn = self.player
+            print("It's now your turn")
+            self.dealer.hand = []
+
+    def deal_cards(self):
+        if len(self.current_turn.hand) < 1:
+            self.current_turn.hand.append(self.dealer.deal_one())
+            self.current_turn.hand.append(self.dealer.deal_one())
+        else:
+            self.current_turn.hand.append(self.dealer.deal_one())
