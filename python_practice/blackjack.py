@@ -66,12 +66,20 @@ class Player:
 
     def check_bank(self):
         return self.bank
-      
+
     def bet(self, amount):
         return self.bank.withdraw(amount)
-      
+
     def add_winnings(self, amount):
         self.bank.deposit(amount)
+    
+    def get_hand_value(self):
+        sum = 0
+        
+        for card in self.hand:
+            sum += card.value
+        
+        return sum
 
 
 class Dealer:
@@ -94,7 +102,7 @@ class Game:
         self.dealer = Dealer()
         self.commands = {
             "Hit Me": self.dealer.deal_one(),
-            "Stay": False,
+            "Stay": self.change_turn(),
             "Check Bank": self.player.check_bank(),
         }
         self.current_turn = self.player
@@ -126,7 +134,7 @@ while True:
         playing = True
 
         new_game = Game(input("What is your name? "))
-        
+
         new_game.dealer.shuffle_deck()
 
         print("Your turn is first")
@@ -140,12 +148,49 @@ while True:
 
                 except:
                     print('Please enter a number!')
-                    
-                new_game.deal_cards()
+
+                if len(new_game.dealer.deck.all_cards) > 10:
+                    new_game.deal_cards()
+                else:
+                    print(
+                        f"We are all out of cards, your total was {new_game.player.check_bank()}")
+                    print("Please start a new game")
+                    break
+
                 if new_game.player.hand[0].value + new_game.player.hand[1].value == 21:
-                  print('BlackJack!')
-                  new_game.player.add_winnings(bet * 2.5)
-                  
+                    print('BlackJack!')
+                    new_game.player.add_winnings(bet * 2.5)
+                    play_again = input(
+                        f"Good job, you now have {new_game.player.check_bank()}, would you like to play again? (y/n): ")
+                    if play_again == "y":
+                        new_game.reset_hands()
+                        continue
+                    else:
+                        break
+                        
+                else:
+                    player_value = 0
+                    dealer_value = 0
+                    while new_game.current_turn == new_game.player:
+                        player_value = new_game.player.get_hand_value()
+                        
+                        if player_value == 21:
+                            print("You got 21 good job.")
+                            new_game.change_turn()
+                        
+                        elif player_value < 21:
+                            print(f"You have {player_value}")
+                            new_game.commands[input('"Hit Me" or "Stay"? ')]
+                        
+                        else:
+                            print(f'Big Oof you got {player_value} thats a break buddy')
+                            new_game.reset_hands()
+                            break
+                        
+                    
+                        
+                    
+
 
     elif play == 'n':
         print("Have a good day!")
