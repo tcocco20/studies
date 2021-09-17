@@ -51,7 +51,7 @@ class Bank:
             self.balance -= amount
             return amount
         else:
-            print('You are out of money')
+            print("You don't have enough money")
             return False
 
     def __str__(self):
@@ -65,7 +65,13 @@ class Player:
         self.hand = []
 
     def check_bank(self):
-        print(self.bank)
+        return self.bank
+      
+    def bet(self, amount):
+        return self.bank.withdraw(amount)
+      
+    def add_winnings(self, amount):
+        self.bank.deposit(amount)
 
 
 class Dealer:
@@ -91,16 +97,20 @@ class Game:
             "Stay": False,
             "Check Bank": self.player.check_bank(),
         }
+        self.current_turn = self.player
 
     def change_turn(self):
         if self.current_turn == self.player:
             self.current_turn = self.dealer
             print("It is now the dealer's turn")
-            self.player.hand = []
         else:
             self.current_turn = self.player
             print("It's now your turn")
-            self.dealer.hand = []
+            self.reset_hands()
+
+    def reset_hands(self):
+        self.dealer.hand = []
+        self.player.hand = []
 
     def deal_cards(self):
         if len(self.current_turn.hand) < 1:
@@ -108,3 +118,39 @@ class Game:
             self.current_turn.hand.append(self.dealer.deal_one())
         else:
             self.current_turn.hand.append(self.dealer.deal_one())
+
+
+while True:
+    play = input("Would you like to play blackjack? (y/n): ")
+    if play.lower() == 'y':
+        playing = True
+
+        new_game = Game(input("What is your name? "))
+        
+        new_game.dealer.shuffle_deck()
+
+        print("Your turn is first")
+
+        while playing:
+            if new_game.current_turn == new_game.player:
+                try:
+                    print(new_game.player.check_bank())
+                    bet = new_game.player.bet(
+                        int(input('How much would you like to bet? ')))
+
+                except:
+                    print('Please enter a number!')
+                    
+                new_game.deal_cards()
+                if new_game.player.hand[0].value + new_game.player.hand[1].value == 21:
+                  print('BlackJack!')
+                  new_game.player.add_winnings(bet * 2.5)
+                  
+
+    elif play == 'n':
+        print("Have a good day!")
+        break
+
+    else:
+        print("please make a valid entry, it's two possible letters for god's sake")
+        continue
