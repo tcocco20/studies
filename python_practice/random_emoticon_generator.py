@@ -74,7 +74,7 @@ class Horizontal_emoticon:
 		
 		return self.eyes + self.nose + self.mouth
 		
-	
+
 	
 	
 	
