@@ -1,115 +1,43 @@
-// const url = "https://jsonplaceholder.typicode.com/todos/";
+//1. comments
 
-// import * as posts from "./iframe.js";
+//comments are for leaving notes for your code
+//Anything written as a comment will not run on your command line.
 
-// fetch(url)
-//   .then((response) => response.json())
-//   .then((json) => filter(json))
-//   .then((json) => console.log(json));
+// let x = 50
 
-// const filter = (json) => json.filter((r) => r.id > 50 && r.id < 60);
+// x + 5 = y
 
-// const makeUri = (pig, id = "") =>
-//   `https://jsonplaceholder.typicode.com/${pig}/${id}`;
 
-// fetch(makeUri("posts"))
-//   .then((response) => response.json())
-//   .then(filter)
-//   .then((json) => console.log(json));
+//multi line comment
+/* annotated by the "/*" closed with the opposite
+asdfasd
+asdfasd
+asdf
+*/
 
-// look up difference between url, uri and urn
 
-// fetch(makeUri("posts"), {
-//   method: "POST",
-//   body: JSON.stringify({
-//     title: "some title",
-//     body: "lorem 3",
-//     userId: 1,
-//   }),
-//   headers: {
-//     "Content-type": "application/json",
-//   },
-// })
-//   .then((response) => response.json())
-//   .then((json) => console.log(json));
+//2. Basic Data types - Strings
+//strings are annotated with quotes
+//They are used as words not objects
+console.log("Hello Gonzo")
 
-// fetch(makeUri("posts", 1), {
-//   method: "PUT",
-//   body: JSON.stringify({
-//     title: "some title",
-//     body: "lorem 3",
-//     userId: 1,
-//     id: 1,
-//   }),
-//   headers: {
-//     "Content-type": "application/json",
-//   },
-// })
-//   .then((response) => response.json())
-//   .then((json) => console.log(json));
+const message = 'hello'
 
-// fetch(makeUri("posts", 1), {
-//   method: "PATCH",
-//   body: JSON.stringify({
-//     title: "new title",
-//   }),
-//   headers: {
-//     "Content-type": "application/json",
-//   },
-// })
-//   .then((response) => response.json())
-//   .then((json) => console.log(json));
+//doesn't matter what quotes you use, if you need to display single quotes wrap
+//string in double quotes and vise versa
+const test = "Gonzalez's computer"
+const quote = '"Do unto other as however you see fit or whatever man" - Jesus probably'
 
-// fetch(makeUri("posts", 1), {
-//   method: "DELETE",
-// }).then(() => console.log("successfully deleted"));
+//strings have functions or methods that you can use when you add a period to the end of them
+console.log(quote.toLocaleUpperCase())
 
-// const renderPage = (posts) => {
-//   const body = document.body;
+//Doesn't have to use a variable
+console.log("Hello".replace('H', "Y"))
 
-//   posts = filter(posts);
-
-//   posts.forEach((i) => {
-//     const p = document.createElement("p");
-//     p.innerText = i.title;
-//     body.append(p);
-//   });
-// };
-
-// fetch(makeUri("posts"))
-//   .then((response) => response.json())
-//   .then(renderPage);
-
-// const h1 = document.querySelector("h1");
-// h1.style.color = "red";
-
-// displayX();
-
-// console.log(posts);
-
-// const renderPage = (posts) => {
-//   const body = document.body;
-
-//   for (const x in posts) {
-//     const p = document.createElement("p");
-//     p.innerText = posts[x];
-//     body.append(p);
-//   }
-// };
-
-// renderPage(posts);
-
-// const list = [1, 2, 3, "4", "5", 6, "7"];
-
-// function filterList(list) {
-//   return list.filter((i) => typeof i === "number");
-// }
-
-// console.log(filterList(list));
-
-const s = "hi";
-let n = 3;
-
-for (let i = 0; i < n; i++) s += s
-
-console.log(s)
+//String Literals
+//String literals are written with the back ticks "`"
+const nam = 'Theo'
+//lame old method
+console.log('Hello ' + nam + ' from the function')
+//string Literal method used to formatting strings better
+console.log(`Hello ${nam} from the function`)
