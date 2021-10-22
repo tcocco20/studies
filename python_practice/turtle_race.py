@@ -46,3 +46,5 @@ while race_on:
     turtle.forward(rand_dist)
 
 s.exitonclick()
+
+
