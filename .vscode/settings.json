@@ -1,6 +1,7 @@
 {
   "liveServer.settings.port": 5501,
   "python.analysis.extraPaths": [
-    "./python_practice/100_days_of_coding/snake_game"
+    "./python_practice/100_days_of_coding/snake_game",
+    "./python_practice/django/django_refresh/password_generator"
   ]
 }
