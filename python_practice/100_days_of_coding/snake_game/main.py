@@ -27,8 +27,8 @@ while game_on:
   
   snake.move()
   
-  if snake.dead.distance(food) < 15:
-  	food.refresh()
+  # if snake.distance(food) < 15:
+  	# food.refresh()
   
 
 screen.exitonclick()
